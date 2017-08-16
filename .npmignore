@@ -11,6 +11,7 @@ npm-debug.log
 .travis.yml
 .pairs
 .coffee
+.coveralls.yml
 
 npm-shrinkwrap.json
 package-lock.json
