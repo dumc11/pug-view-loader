@@ -4,7 +4,8 @@
   "description": "The simplest way to writing a JSON view using pug",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-on-travis": "./node_modules/.bin/jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "pug": "^2.0.0-rc.3"
   },
   "devDependencies": {
+    "coveralls": "^2.13.1",
     "jest": "^20.0.4"
   },
   "jest": {

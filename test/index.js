@@ -1,5 +1,7 @@
 
-var parser = require('./../src/index.js').bind({})
+var parser = require('./../src/index.js').bind({
+  cacheable: () => {}
+})
 
 it('should parse a simple module', () => {
 
