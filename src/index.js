@@ -12,10 +12,31 @@ module.exports = function(content) {
     })
 
   var currentVars = true
-  var code = splitedRaw.reduce((acc, x) => {
+  var takeProps = false
+  var ignoreNext = false
+  var code = splitedRaw.reduce((acc, x, index, arr) => {
     var val = x.replace(/\s/g, '')
     if (val === '---' && currentVars === true) {
       currentVars = false
+
+      // check for props
+      let propsLine = arr[index + 2]
+
+      if (propsLine && propsLine.replace(/\s/g, '') === '---') {
+        takeProps = true
+      }
+      return acc
+    }
+
+    if (takeProps) {
+      acc.props = x
+      takeProps = false
+      ignoreNext = true
+      return acc
+    }
+
+    if (ignoreNext) {
+      ignoreNext = false
       return acc
     }
 
@@ -28,6 +49,7 @@ module.exports = function(content) {
     return acc
   }, {
     vars: [],
+    props: '',
     lines: []
   })
 
@@ -37,6 +59,11 @@ module.exports = function(content) {
     acc[parts[0]] = parts[1]
     return acc
   }, {})
+
+  var props
+  if (code.props !== '') {
+    props = code.props.replace(/^\s+/g, '').split(' ')
+  }
 
   var rootIndent = /^\s*/.exec(code.lines[0])[0]
   var fixedRaw = code.lines.map(function (raw) {
@@ -52,6 +79,7 @@ module.exports = function(content) {
   return `
     module.exports = {
       args: ${JSON.stringify(args)},
+      ${ props ? 'props: ' + JSON.stringify(props)  + ',' : ''}
       template: \`${html}\`
     }
   `
