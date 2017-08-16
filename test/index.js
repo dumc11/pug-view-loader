@@ -14,6 +14,7 @@ it('should parse a simple module', () => {
       p {{ bar }}
  `)
 
+  result = result.split('if (module.hot)')[0]
   result = result.replace(/\s/g, '')
 
   var sample = `
@@ -24,6 +25,7 @@ it('should parse a simple module', () => {
 
 `
   sample = sample.replace(/\s/g, '')
+
 
   expect(result).toBe(sample)
 })
@@ -45,6 +47,7 @@ it('should parse a module with props', () => {
         span {{ bar }}
  `)
 
+  result = result.split('if (module.hot)')[0]
   result = result.replace(/\s/g, '')
 
   var sample = `
@@ -70,6 +73,7 @@ it('should parse nested properties', () => {
           h3 {{ item.title }}
  `)
 
+  result = result.split('if (module.hot)')[0]
   result = result.replace(/\s/g, '')
 
   var sample = `

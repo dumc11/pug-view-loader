@@ -81,5 +81,13 @@ module.exports = function(content) {
       ${ props ? 'props: ' + JSON.stringify(props)  + ',' : ''}
       template: \`${html}\`
     }
+
+    if (module.hot) {
+      module.hot.accept(function (err) {
+        if (err) {
+          console.error(err)
+        }
+      })
+    }
   `
 }
