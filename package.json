@@ -1,0 +1,42 @@
+{
+  "name": "pug-view-loader",
+  "version": "1.0.0",
+  "description": "The simplest way to writing a JSON view using pug",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonmvc/pug-view-loader.git"
+  },
+  "keywords": [
+    "jsonmvc",
+    "pug",
+    "view",
+    "ui",
+    "development"
+  ],
+  "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsonmvc/pug-view-loader/issues"
+  },
+  "homepage": "https://github.com/jsonmvc/pug-view-loader#readme",
+  "dependencies": {
+    "pug": "^2.0.0-rc.3"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4"
+  },
+  "jest": {
+    "testRegex": "test/.*\\.js$",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  }
+}
