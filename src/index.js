@@ -73,7 +73,6 @@ module.exports = function(content) {
 
   var html = render(fixedRaw)
     .replace(/"\{/g, '{').replace(/\}"/g, '}').replace(/\};"/g, '}')
-    .replace(/class="/g, 'className="').replace(/for="/g, 'htmlFor="')
     .replace(/\\\`/g, '`')
 
   return `
