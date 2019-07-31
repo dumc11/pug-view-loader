@@ -1,19 +1,22 @@
 
 var render = require('pug').render
 
-module.exports = function(content) {
+module.exports = function (content) {
   this.cacheable && this.cacheable();
   this.value = content;
 
   var splitedRaw = content
     .split('\n')
-    .filter(function(str) {
+    .filter(function (str) {
       return str !== '' && str.match(/^\s\t*$/g) === null
     })
 
   var currentVars = true
   var takeProps = false
   var ignoreNext = false
+  if (!content.includes('---')) {
+    currentVars = false
+  }
   var code = splitedRaw.reduce((acc, x, index, arr) => {
     var val = x.replace(/\s/g, '')
     if (val === '---' && currentVars === true) {
@@ -48,10 +51,10 @@ module.exports = function(content) {
 
     return acc
   }, {
-    vars: [],
-    props: '',
-    lines: []
-  })
+      vars: [],
+      props: '',
+      lines: []
+    })
 
   var args = code.vars.reduce((acc, x) => {
     x = x.replace(/[\s\t]/g, '')
@@ -78,16 +81,8 @@ module.exports = function(content) {
   return `
     module.exports = {
       args: ${JSON.stringify(args)},
-      ${ props ? 'props: ' + JSON.stringify(props)  + ',' : ''}
+      ${ props ? 'props: ' + JSON.stringify(props) + ',' : ''}
       template: \`${html}\`
-    }
-
-    if (module.hot) {
-      module.hot.accept(function (err) {
-        if (err) {
-          console.error(err)
-        }
-      })
     }
   `
 }
